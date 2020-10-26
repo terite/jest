@@ -196,6 +196,15 @@ it('unmocks virtual mocks after they have been mocked previously', () =>
     );
   }));
 
+it('throws an error when called with null moduleName', () =>
+  createRuntime(__filename, {
+    moduleNameMapper,
+  }).then(runtime => {
+    expect(() => {
+      runtime.requireModuleOrMock(runtime.__mockRootPath, null);
+    }).toThrowErrorMatchingSnapshot();
+  }));
+
 describe('resetModules', () => {
   it('resets all the modules', () =>
     createRuntime(__filename, {

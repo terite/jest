@@ -737,6 +737,11 @@ class Runtime {
   }
 
   requireModuleOrMock<T = unknown>(from: Config.Path, moduleName: string): T {
+    if (moduleName == null) {
+      throw new TypeError(
+        'The first argument to require must be a string. Received null or undefined.',
+      );
+    }
     // this module is unmockable
     if (moduleName === '@jest/globals') {
       // @ts-expect-error: we don't care that it's not assignable to T
